@@ -208,6 +208,52 @@ section {
   max-width: 56ch;
 }
 
+.hero-ads-callout {
+  max-width: 760px;
+  margin-top: 26px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid rgba(232, 141, 42, 0.42);
+  border-radius: 8px;
+  background: rgba(232, 141, 42, 0.08);
+}
+
+.hero-ads-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--pin);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.hero-ads-callout p {
+  max-width: 57ch;
+  color: #c6cdd6;
+  font-size: 14px;
+}
+
+.hero-ads-callout a {
+  flex-shrink: 0;
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.hero-ads-callout a span {
+  margin-left: 4px;
+  color: var(--pin);
+  transition: margin-left 0.15s ease;
+}
+
+.hero-ads-callout a:hover span {
+  margin-left: 8px;
+}
+
 .area-strip {
   background: linear-gradient(180deg, var(--paper-dim), rgba(231, 228, 220, 0.45));
   border-top: 1px solid var(--line-dark);
@@ -544,6 +590,7 @@ section {
 .tier .t-commit,
 .tier .price-note,
 .tiers-foot-note,
+.ads-outcome p,
 .ads-panel p,
 footer {
   color: var(--slate);
@@ -746,9 +793,10 @@ footer {
 }
 
 .ads-panel {
-  margin-top: 52px;
-  background: var(--white);
-  border: 1px solid var(--line-dark);
+  margin-top: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
   border-radius: 10px;
   padding: 44px;
   display: grid;
@@ -760,11 +808,68 @@ footer {
 .ads-panel h3 {
   font-size: 22px;
   margin-bottom: 10px;
+  max-width: 32ch;
 }
 
 .ads-panel p {
   font-size: 15px;
   max-width: 52ch;
+  color: #b7bfc9;
+}
+
+.ads {
+  background: var(--paper-dim);
+}
+
+.ads .sec-title {
+  max-width: 18ch;
+}
+
+.ads .sec-sub {
+  max-width: 61ch;
+}
+
+.ads-outcomes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 52px;
+  border: 1px solid var(--line-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--line-dark);
+}
+
+.ads-outcome {
+  background: var(--white);
+  padding: 30px;
+}
+
+.ads-num,
+.ads-kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pin);
+}
+
+.ads-num {
+  margin-bottom: 14px;
+}
+
+.ads-outcome h3 {
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.ads-outcome p {
+  font-size: 14.5px;
+}
+
+.ads-kicker {
+  margin-bottom: 12px;
 }
 
 .ads-chips {
@@ -776,8 +881,9 @@ footer {
 
 .ads-chips span {
   font-size: 12px;
-  background: var(--paper-dim);
-  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--line);
+  color: var(--paper);
   padding: 5px 12px;
   border-radius: 20px;
 }
@@ -906,7 +1012,8 @@ footer {
 }
 
 @media (max-width: 800px) {
-  .why-grid {
+  .why-grid,
+  .ads-outcomes {
     grid-template-columns: 1fr;
   }
 }
@@ -946,6 +1053,11 @@ footer {
 
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-ads-callout {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .area-card {
