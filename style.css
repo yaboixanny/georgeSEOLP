@@ -254,6 +254,10 @@ section {
   margin-left: 8px;
 }
 
+.hero-dashboard {
+  display: none;
+}
+
 .area-strip {
   background: linear-gradient(180deg, var(--paper-dim), rgba(231, 228, 220, 0.45));
   border-top: 1px solid var(--line-dark);
@@ -990,6 +994,250 @@ footer {
   font-size: 13px;
   text-align: center;
   border-top: 1px solid var(--line);
+}
+
+@media (min-width: 901px) {
+  .wrap {
+    max-width: 1240px;
+    padding: 0 40px;
+  }
+
+  section {
+    padding: 118px 0;
+  }
+
+  .hero {
+    padding: 112px 0 120px;
+  }
+
+  .hero .wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 0.68fr);
+    align-items: center;
+    gap: clamp(48px, 7vw, 112px);
+  }
+
+  .hero-content {
+    max-width: 680px;
+  }
+
+  .hero h1 {
+    font-size: clamp(48px, 4.15vw, 64px);
+  }
+
+  .hero-dashboard {
+    position: relative;
+    display: grid;
+    gap: 18px;
+    padding: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background:
+      radial-gradient(circle at 88% 7%, rgba(232, 141, 42, 0.22), transparent 30%),
+      linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    box-shadow: 18px 22px 0 rgba(232, 141, 42, 0.1);
+  }
+
+  .hero-dashboard::before,
+  .hero-dashboard::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0 7px rgba(47, 168, 138, 0.12);
+  }
+
+  .hero-dashboard::before {
+    top: 86px;
+    right: 32px;
+  }
+
+  .hero-dashboard::after {
+    bottom: 83px;
+    left: 36px;
+  }
+
+  .dashboard-heading,
+  .dashboard-search,
+  .dashboard-channels,
+  .dashboard-outcome {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dashboard-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: var(--paper);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dashboard-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #a9dfd1;
+    font-size: 9px;
+  }
+
+  .dashboard-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--signal);
+  }
+
+  .dashboard-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 54px;
+    padding: 0 15px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 7px;
+    background: rgba(3, 10, 19, 0.52);
+    color: #c6cdd6;
+    font-size: 13px;
+  }
+
+  .dashboard-search span {
+    color: var(--pin);
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .dashboard-channels {
+    display: grid;
+    gap: 10px;
+  }
+
+  .dashboard-channel {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .dashboard-channel-number {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: rgba(232, 141, 42, 0.18);
+    color: #ffd8ab;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .dashboard-paid .dashboard-channel-number {
+    background: rgba(47, 168, 138, 0.18);
+    color: #baf5e6;
+  }
+
+  .dashboard-channel strong,
+  .dashboard-channel small {
+    display: block;
+  }
+
+  .dashboard-channel strong {
+    color: var(--paper);
+    font-size: 13px;
+  }
+
+  .dashboard-channel small {
+    margin-top: 2px;
+    color: #aeb8c6;
+    font-size: 11px;
+  }
+
+  .dashboard-outcome {
+    padding: 14px 15px;
+    border-radius: 8px;
+    background: var(--pin);
+    color: var(--ink);
+  }
+
+  .dashboard-outcome span,
+  .dashboard-outcome strong {
+    display: block;
+  }
+
+  .dashboard-outcome span {
+    margin-bottom: 2px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dashboard-outcome strong {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    line-height: 1.15;
+  }
+
+  .area-card {
+    gap: 30px;
+    padding: 34px 36px;
+  }
+
+  .area-grid {
+    gap: 16px;
+  }
+
+  .area-state-card {
+    padding: 27px 24px;
+  }
+
+  .why-grid,
+  .ads-outcomes {
+    margin-top: 62px;
+  }
+
+  .why-card,
+  .ads-outcome {
+    padding: 42px 38px;
+  }
+
+  .tiers-grid {
+    gap: 28px;
+    margin-top: 64px;
+  }
+
+  .tier {
+    padding: 40px 34px;
+  }
+
+  .tier.featured {
+    transform: translateY(-16px);
+  }
+
+  .commit .wrap {
+    gap: 86px;
+  }
+
+  .commit-box {
+    padding: 34px;
+  }
+
+  .ads-panel {
+    margin-top: 28px;
+    padding: 52px;
+  }
 }
 
 @media (max-width: 900px) {
