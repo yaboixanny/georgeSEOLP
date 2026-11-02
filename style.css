@@ -101,6 +101,27 @@ h1,h2,h3,h4 { font-weight: 800; line-height: 1.15; letter-spacing: -.045em; }
 .metrics b { font-size: 11px; }
 .metrics small { font-size: 8px; color: #9499a5; }
 .metric-icon { font-style: normal; color: var(--purple); font-size: 23px; }
+.metrics > div { --metric-delay: 0s; position: relative; padding-bottom: 12px; }
+.metrics > div:nth-child(2) { --metric-delay: -4s; }
+.metrics > div:nth-child(3) { --metric-delay: -2s; }
+.metrics .metric-icon { width: 32px; border-radius: 8px; text-align: center; animation: metric-highlight 6s var(--metric-delay) ease-in-out infinite; }
+.metrics > div::before,
+.metrics > div::after { content: ""; position: absolute; bottom: 0; left: 0; width: 85%; height: 3px; border-radius: 3px; }
+.metrics > div::before { background: #eeeaf8; }
+.metrics > div::after { background: linear-gradient(90deg, var(--purple), #56b4c5); transform-origin: left; animation: metric-activity 6s var(--metric-delay) ease-in-out infinite; }
+.overview-toggle { display: block; margin: 17px 0 0 auto; padding: 3px 7px; border: 1px solid var(--line); border-radius: 12px; color: var(--muted); background: white; font-size: 9px; }
+.overview-toggle:hover { color: var(--purple); border-color: #cbbbf4; }
+.report-preview.is-paused .metric-icon,
+.report-preview.is-paused .metrics > div::after { animation-play-state: paused; }
+@keyframes metric-highlight {
+  0%, 33%, 100% { transform: translateY(0); background: transparent; box-shadow: 0 0 0 transparent; }
+  8%, 24% { transform: translateY(-3px); background: #f1ebff; box-shadow: 0 4px 12px #7b5cf120; }
+}
+@keyframes metric-activity {
+  0% { transform: scaleX(.12); opacity: .4; }
+  26% { transform: scaleX(1); opacity: 1; }
+  38%, 100% { transform: scaleX(.12); opacity: .4; }
+}
 .features { padding-top: 120px; }
 .features>.section-heading { margin-bottom: 50px; }
 .feature { padding: 80px 0; }
@@ -238,6 +259,8 @@ dialog .button { margin-top: 22px; width: 100%; }
   dialog { padding: 30px 22px; max-height: calc(100dvh - 30px); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .overview-toggle { display: none; }
+  .metrics > div::after { transform: scaleX(.45); opacity: .5; }
   .workflow-toggle, .stage:not(:last-child)::before { display: none; }
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation: none !important; transition: none !important; }

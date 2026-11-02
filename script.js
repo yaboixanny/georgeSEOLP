@@ -7,6 +7,20 @@ workflowToggle.addEventListener('click', () => {
   workflowToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
 });
 const status = document.getElementById('brief-status');
+const overview = document.querySelector('.report-preview');
+const overviewToggle = document.createElement('button');
+overviewToggle.type = 'button';
+overviewToggle.className = 'overview-toggle';
+overviewToggle.textContent = 'Pause animation';
+overviewToggle.setAttribute('aria-label', 'Pause search overview animation');
+overviewToggle.setAttribute('aria-pressed', 'false');
+overview.append(overviewToggle);
+overviewToggle.addEventListener('click', () => {
+  const paused = overview.classList.toggle('is-paused');
+  overviewToggle.setAttribute('aria-pressed', String(paused));
+  overviewToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
+  overviewToggle.setAttribute('aria-label', paused ? 'Resume search overview animation' : 'Pause search overview animation');
+});
 document.querySelectorAll('[data-plan]').forEach(button => {
   button.addEventListener('click', () => {
     status.textContent = '';
