@@ -149,6 +149,37 @@ h1,h2,h3,h4 { font-weight: 800; line-height: 1.15; letter-spacing: -.045em; }
 .keyword-table b { color: #8d91a3; font-size: 9px; }
 .keyword-table em { font-style: normal; color: #329f7c; background: #eaf7f0; padding: 1px 5px; border-radius: 4px; font-size: 8px; }
 .float-note { background: white; border: 1px solid #e6e7ef; font-size: 10px; border-radius: 20px; padding: 7px 13px; margin-top: 18px; color: var(--blue); }
+.art-keywords .search-box { display: flex; align-items: center; min-height: 56px; }
+.search-box .search-query { display: inline-block; overflow: hidden; white-space: nowrap; width: 21ch; margin: 0; color: var(--ink); font: 12px/1.8 monospace; animation: search-typing 8s infinite; }
+.art-keywords .cursor { flex-shrink: 0; margin-left: 2px; }
+.art-keywords .keyword-table { margin-top: 5px; border: 1px solid #e0e6f7; box-shadow: 0 14px 25px #7182a518; transform-origin: top; animation: search-dropdown 8s ease infinite; }
+.art-keywords .keyword-table > div { animation: search-suggestion 8s ease infinite; }
+.art-keywords .keyword-table > div:nth-child(3) { animation-name: search-suggestion-two; }
+.art-keywords .keyword-table > div:nth-child(4) { animation-name: search-suggestion-three; }
+.art-keywords .search-toggle { margin: 12px 0 0; }
+.art-keywords.is-paused *, .art-keywords.is-paused *::after { animation-play-state: paused; }
+@keyframes search-typing {
+  0%, 8% { width: 0; }
+  8% { animation-timing-function: steps(21, end); }
+  39%, 94% { width: 21ch; }
+  95%, 100% { width: 0; }
+}
+@keyframes search-dropdown {
+  0%, 42%, 96%, 100% { opacity: 0; transform: translateY(-10px) scaleY(.96); }
+  48%, 92% { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+@keyframes search-suggestion {
+  0%, 44%, 96%, 100% { opacity: 0; transform: translateY(-5px); }
+  50%, 92% { opacity: 1; transform: translateY(0); }
+}
+@keyframes search-suggestion-two {
+  0%, 47%, 96%, 100% { opacity: 0; transform: translateY(-5px); }
+  53%, 92% { opacity: 1; transform: translateY(0); }
+}
+@keyframes search-suggestion-three {
+  0%, 50%, 96%, 100% { opacity: 0; transform: translateY(-5px); }
+  56%, 92% { opacity: 1; transform: translateY(0); }
+}
 .voice-tags { display: flex; gap: 8px; margin: 22px 0; }
 .voice-tags span { font-size: 9px; padding: 3px 9px; color: var(--purple); border-radius: 5px; background: #f2edff; }
 .document h4 { font-size: 20px; margin: 18px 0; line-height: 1.4; }
@@ -259,6 +290,7 @@ dialog .button { margin-top: 22px; width: 100%; }
   dialog { padding: 30px 22px; max-height: calc(100dvh - 30px); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .search-toggle { display: none; }
   .overview-toggle { display: none; }
   .metrics > div::after { transform: scaleX(.45); opacity: .5; }
   .workflow-toggle, .stage:not(:last-child)::before { display: none; }

@@ -1,4 +1,11 @@
 const dialog = document.getElementById('plan-dialog');
+const searchIllustration = document.querySelector('.art-keywords');
+const searchToggle = document.querySelector('.search-toggle');
+searchToggle.addEventListener('click', () => {
+  const paused = searchIllustration.classList.toggle('is-paused');
+  searchToggle.setAttribute('aria-pressed', String(paused));
+  searchToggle.textContent = paused ? 'Resume search animation' : 'Pause search animation';
+});
 const workflow = document.querySelector('.pipeline');
 const workflowToggle = document.querySelector('.workflow-toggle');
 workflowToggle.addEventListener('click', () => {
