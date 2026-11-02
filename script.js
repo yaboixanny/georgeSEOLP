@@ -1,4 +1,11 @@
 const dialog = document.getElementById('plan-dialog');
+const workflow = document.querySelector('.pipeline');
+const workflowToggle = document.querySelector('.workflow-toggle');
+workflowToggle.addEventListener('click', () => {
+  const paused = workflow.classList.toggle('is-paused');
+  workflowToggle.setAttribute('aria-pressed', String(paused));
+  workflowToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
+});
 const status = document.getElementById('brief-status');
 document.querySelectorAll('[data-plan]').forEach(button => {
   button.addEventListener('click', () => {

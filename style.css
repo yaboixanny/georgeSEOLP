@@ -43,6 +43,43 @@ h1,h2,h3,h4 { font-weight: 800; line-height: 1.15; letter-spacing: -.045em; }
 .stage:last-child .stage-icon { color: #75d2b7; background: #58ba8c20; }
 .stage h3 { font-size: 15px; letter-spacing: -.02em; margin: 15px 0 5px; }
 .stage p { color: #9595a9; font-size: 11px; }
+.stage { --phase: 0s; --glow: #a98aff; animation: workflow-stage 8s var(--phase) ease-in-out infinite; }
+.stage:nth-child(2) { --phase: -6s; }
+.stage:nth-child(3) { --phase: -4s; }
+.stage:nth-child(4) { --phase: -2s; --glow: #75d2b7; }
+.stage-icon { animation: workflow-icon 8s var(--phase) ease-in-out infinite; }
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 2px);
+  right: -13px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--glow);
+  box-shadow: 0 0 10px var(--glow);
+  opacity: 0;
+  animation: workflow-signal 8s var(--phase) linear infinite;
+}
+.workflow-toggle { margin-top: 16px; padding: 4px 10px; border: 1px solid #ffffff20; border-radius: 20px; background: transparent; color: #b0b0c4; font-size: 10px; }
+.workflow-toggle:hover { color: white; border-color: #ffffff50; }
+.pipeline.is-paused .stage,
+.pipeline.is-paused .stage-icon,
+.pipeline.is-paused .stage::before { animation-play-state: paused; }
+@keyframes workflow-stage {
+  0%, 25%, 100% { border-color: #8d71ff35; box-shadow: 0 0 25px #7655d50a; }
+  5%, 19% { border-color: var(--glow); box-shadow: 0 0 22px -10px var(--glow), inset 0 0 25px #ffffff05; }
+}
+@keyframes workflow-icon {
+  0%, 25%, 100% { transform: translateY(0); }
+  7%, 18% { transform: translateY(-4px); }
+}
+@keyframes workflow-signal {
+  0%, 18% { opacity: 0; transform: translateX(0); }
+  20% { opacity: 1; transform: translateX(0); }
+  24% { opacity: 1; transform: translateX(24px); }
+  25%, 100% { opacity: 0; transform: translateX(24px); }
+}
 .pipeline-note { color: #999aaa; font-size: 13px; margin-top: 32px; }
 .pipeline-note span { color: #6ac3a8; padding-right: 8px; }
 .comparison { max-width: 860px; margin: 32px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -176,6 +213,7 @@ dialog .button { margin-top: 22px; width: 100%; }
 @keyframes calendar-glow { 0%,80%,100% { background:#ede6ff; } 40% { background:#8866ed; color:white; } }
 @keyframes blink { 50% { opacity:0; } }
 @media (max-width: 850px) {
+  .stage:not(:last-child)::before { display: none; }
   .stages { gap: 15px; }.stage:not(:last-child)::after { display: none; }
   .pipeline { padding: 30px 22px; }
   .feature-grid { gap: 30px; }.feature-art { padding: 20px; min-height: 320px; }
@@ -200,6 +238,7 @@ dialog .button { margin-top: 22px; width: 100%; }
   dialog { padding: 30px 22px; max-height: calc(100dvh - 30px); }
 }
 @media (prefers-reduced-motion: reduce) {
+  .workflow-toggle, .stage:not(:last-child)::before { display: none; }
   html { scroll-behavior: auto; }
   *,*::before,*::after { animation: none !important; transition: none !important; }
 }
