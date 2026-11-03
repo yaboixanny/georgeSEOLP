@@ -39,30 +39,3 @@ function updateNiche() {
 nicheSelect.addEventListener('change', updateNiche);
 updateNiche();
 
-document.getElementById('audit-form').addEventListener('submit', event => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const brief = [
-    'Free SEO / GEO / AEO audit request',
-    'Prepared locally. Not submitted or booked.',
-    '',
-    'Name: ' + data.get('name').trim(),
-    'Email: ' + data.get('email').trim(),
-    'Website: ' + data.get('website').trim(),
-    'Industry: ' + data.get('industry'),
-    'Service area: ' + data.get('location').trim(),
-    'Paid ads interest: ' + (data.has('ads') ? 'Yes' : 'No'),
-    '',
-    'Goals:',
-    data.get('goals').trim()
-  ].join('\n');
-  const url = URL.createObjectURL(new Blob([brief], { type: 'text/plain;charset=utf-8' }));
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'seo-audit-request.txt';
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  document.getElementById('audit-status').textContent =
-    'Your audit request is ready to download. Nothing was submitted; delivery is not connected yet.';
-});
-
