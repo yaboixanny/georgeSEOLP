@@ -1,4 +1,3 @@
-const dialog = document.getElementById('plan-dialog');
 const searchIllustration = document.querySelector('.art-keywords');
 const searchToggle = document.querySelector('.search-toggle');
 searchToggle.addEventListener('click', () => {
@@ -13,55 +12,57 @@ workflowToggle.addEventListener('click', () => {
   workflowToggle.setAttribute('aria-pressed', String(paused));
   workflowToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
 });
-const status = document.getElementById('brief-status');
-const overview = document.querySelector('.report-preview');
-const overviewToggle = document.createElement('button');
-overviewToggle.type = 'button';
-overviewToggle.className = 'overview-toggle';
-overviewToggle.textContent = 'Pause animation';
-overviewToggle.setAttribute('aria-label', 'Pause search overview animation');
-overviewToggle.setAttribute('aria-pressed', 'false');
-overview.append(overviewToggle);
-overviewToggle.addEventListener('click', () => {
-  const paused = overview.classList.toggle('is-paused');
-  overviewToggle.setAttribute('aria-pressed', String(paused));
-  overviewToggle.textContent = paused ? 'Resume animation' : 'Pause animation';
-  overviewToggle.setAttribute('aria-label', paused ? 'Resume search overview animation' : 'Pause search overview animation');
-});
-document.querySelectorAll('[data-plan]').forEach(button => {
-  button.addEventListener('click', () => {
-    status.textContent = '';
-    dialog.showModal();
+
+const nicheExamples = {
+  hair: ['hair salon near me', 'balayage specialist near me', 'hair extensions pricing', 'hair colorist in [city]'],
+  medspa: ['medspa near me', 'skin treatment consultation', 'laser hair removal pricing', 'medspa in [city]'],
+  dental: ['dentist near me', 'dental implant consultation', 'teeth whitening pricing', 'emergency dentist in [city]'],
+  hvac: ['HVAC repair near me', 'heat pump repair near me', 'AC replacement pricing', 'furnace repair in [city]'],
+  remodeling: ['remodeler near me', 'kitchen remodel contractor', 'bathroom remodeling cost', 'home renovation in [city]']
+};
+const nicheSelect = document.getElementById('niche-example');
+function updateNiche() {
+  const [query, ...suggestions] = nicheExamples[nicheSelect.value];
+  const queryElement = searchIllustration.querySelector('.search-query');
+  queryElement.textContent = query;
+  queryElement.style.setProperty('--query-width', query.length + 'ch');
+  queryElement.style.setProperty('--query-steps', query.length);
+  searchIllustration.querySelector('.search-box').setAttribute('aria-label', 'Someone typing ' + query);
+  searchIllustration.querySelectorAll('.keyword-table > div > span').forEach((span, index) => {
+    span.textContent = suggestions[index];
   });
-});
-document.querySelector('.close').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', event => {
-  if (event.target === dialog) {
-    const box = dialog.getBoundingClientRect();
-    if (event.clientX < box.left || event.clientX > box.right ||
-        event.clientY < box.top || event.clientY > box.bottom) dialog.close();
-  }
-});
-document.getElementById('brief-form').addEventListener('submit', event => {
+  // Restart the shared timeline so each new example types before suggestions appear.
+  searchIllustration.getAnimations({ subtree: true }).forEach(animation => {
+    animation.currentTime = 0;
+  });
+}
+nicheSelect.addEventListener('change', updateNiche);
+updateNiche();
+
+document.getElementById('audit-form').addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const brief = [
-    'AI SEO - Planning brief',
+    'Free SEO / GEO / AEO audit request',
+    'Prepared locally. Not submitted or booked.',
     '',
+    'Name: ' + data.get('name').trim(),
+    'Email: ' + data.get('email').trim(),
     'Website: ' + data.get('website').trim(),
-    'Priority: ' + data.get('priority'),
+    'Industry: ' + data.get('industry'),
+    'Service area: ' + data.get('location').trim(),
+    'Paid ads interest: ' + (data.has('ads') ? 'Yes' : 'No'),
     '',
     'Goals:',
-    data.get('goals').trim(),
-    '',
-    'Next steps: Review website, confirm scope, agree deliverables and pricing.'
+    data.get('goals').trim()
   ].join('\n');
   const url = URL.createObjectURL(new Blob([brief], { type: 'text/plain;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'ai-seo-brief.txt';
+  link.download = 'seo-audit-request.txt';
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  status.textContent = 'Your brief has been prepared for download. Nothing was sent or submitted.';
+  document.getElementById('audit-status').textContent =
+    'Your audit request is ready to download. Nothing was submitted; delivery is not connected yet.';
 });
 
